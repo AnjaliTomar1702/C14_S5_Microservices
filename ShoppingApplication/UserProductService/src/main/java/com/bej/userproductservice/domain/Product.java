@@ -1,5 +1,6 @@
 package com.bej.userproductservice.domain;
 import org.springframework.data.annotation.Id;
+
 public class Product {
     @Id
     private String productCode;

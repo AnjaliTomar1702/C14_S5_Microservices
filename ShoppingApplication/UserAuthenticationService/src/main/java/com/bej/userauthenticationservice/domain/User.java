@@ -2,26 +2,27 @@ package com.bej.userauthenticationservice.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
 @Entity
-public class Customer {
+public class User {
     @Id
-    private String customerID;
+    private String customerId;
     private String password;
 
-    public Customer() {
+    public User() {
     }
 
-    public Customer(String customerID, String password) {
-        this.customerID = customerID;
+    public User(String email, String password) {
+        this.customerId = email;
         this.password = password;
     }
 
-    public String getCustomerID() {
-        return customerID;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public String getPassword() {
@@ -34,8 +35,8 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "customerID=" + customerID +
+        return "User{" +
+                "customerId='" + customerId + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

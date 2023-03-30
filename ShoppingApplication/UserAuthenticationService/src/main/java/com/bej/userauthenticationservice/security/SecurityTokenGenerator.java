@@ -2,8 +2,8 @@ package com.bej.userauthenticationservice.security;
 
 
 
-import com.bej.userauthenticationservice.domain.Customer;
+import com.bej.userauthenticationservice.domain.User;
 
 public interface SecurityTokenGenerator {
-    String createToken(Customer user);
+    String createToken(User user);
 }

@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 @Document
 public class Customer {
+
     @Id
     private String customerId;
     private String customerName;

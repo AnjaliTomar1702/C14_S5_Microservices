@@ -4,5 +4,5 @@ import com.bej.userproductservice.domain.Customer;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface CustomerProductRepository extends MongoRepository<Customer,String> {
-    Customer findByEmail(String id);
+    Customer findByCustomerId(String id);
 }

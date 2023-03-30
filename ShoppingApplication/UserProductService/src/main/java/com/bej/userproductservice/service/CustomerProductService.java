@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CustomerProductService {
     Customer registerNewCustomer(Customer user) throws CustomerAlreadyExistsException;
-    Customer saveCustomerProduct(Product movie, String email) throws CustomerNotFoundException;
-    Customer deleteProductOfACustomer(String email,String movieId) throws CustomerNotFoundException, ProductNotFoundException;
-    List<Product> getAllProductOfCustomer(String email) throws CustomerNotFoundException;
+    Customer saveCustomerProduct(Product product, String id) throws CustomerNotFoundException;
+    Customer deleteProductOfACustomer(String id,String productId) throws CustomerNotFoundException, ProductNotFoundException;
+    List<Product> getAllProductOfCustomer(String id) throws CustomerNotFoundException;
 }

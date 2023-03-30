@@ -35,7 +35,7 @@ public class CustomerProductServiceImpl implements CustomerProductService{
         {
             throw new CustomerNotFoundException();
         }
-        Customer user = userMovieRepository.findByEmail(id);
+        Customer user = userMovieRepository.findByCustomerId(id);
         if(user.getProductList() == null)
         {
             user.setProductList(Arrays.asList(product));

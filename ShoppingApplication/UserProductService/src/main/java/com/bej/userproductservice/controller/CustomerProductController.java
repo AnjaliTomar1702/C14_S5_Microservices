@@ -18,17 +18,17 @@ import com.bej.userproductservice.service.CustomerProductService;
 @RestController
 @RequestMapping("/api/v1")
 public class CustomerProductController {
-    private CustomerProductService userMovieService;
+    private CustomerProductService customerProductService;
     private ResponseEntity<?> responseEntity;
     @Autowired
-    public CustomerProductController(CustomerProductService userMovieService) {
-        this.userMovieService = userMovieService;
+    public CustomerProductController(CustomerProductService customerProductService) {
+        this.customerProductService = customerProductService;
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody Customer user) throws CustomerAlreadyExistsException {
         try {
-            responseEntity =  new ResponseEntity<>(userMovieService.registerNewCustomer(user), HttpStatus.CREATED);
+            responseEntity =  new ResponseEntity<>(customerProductService.registerNewCustomer(user), HttpStatus.CREATED);
         }
         catch(CustomerAlreadyExistsException e)
         {
@@ -36,15 +36,15 @@ public class CustomerProductController {
         }
         return responseEntity;
     }
-    @PostMapping("/user/movie")
-    public ResponseEntity<?> saveUserMovieToList(@RequestBody Product movie, HttpServletRequest request) throws CustomerNotFoundException {
+    @PostMapping("/user/product")
+    public ResponseEntity<?> saveUserProductToList(@RequestBody Product product, HttpServletRequest request) throws CustomerNotFoundException {
         try {
             System.out.println("header" +request.getHeader("Authorization"));
             Claims claims = (Claims) request.getAttribute("claims");
-            System.out.println("email from claims :: " + claims.getSubject());
-            String email = claims.getSubject();
-            System.out.println("email :: "+email);
-            responseEntity = new ResponseEntity<>(userMovieService.saveCustomerProduct(movie, email), HttpStatus.CREATED);
+            System.out.println("id from claims :: " + claims.getSubject());
+            String id = claims.getSubject();
+            System.out.println("id :: "+id);
+            responseEntity = new ResponseEntity<>(customerProductService.saveCustomerProduct(product, id), HttpStatus.CREATED);
         }
         catch (CustomerNotFoundException e)
         {
@@ -52,31 +52,31 @@ public class CustomerProductController {
         }
         return responseEntity;
     }
-    @GetMapping("/user/movies")
-    public ResponseEntity<?> getAllUserMoviesFromList(HttpServletRequest request) throws CustomerNotFoundException {
+    @GetMapping("/user/products")
+    public ResponseEntity<?> getAllUserProductFromList(HttpServletRequest request) throws CustomerNotFoundException {
         try{
             System.out.println("header" +request.getHeader("Authorization"));
             Claims claims = (Claims) request.getAttribute("claims");
             System.out.println("email from claims :: " + claims.getSubject());
             String email = claims.getSubject();
             System.out.println("email :: "+email);
-            responseEntity = new ResponseEntity<>(userMovieService.getAllProductOfCustomer(email), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(customerProductService.getAllProductOfCustomer(email), HttpStatus.OK);
         }catch(CustomerNotFoundException e)
         {
             throw new CustomerNotFoundException();
         }
         return responseEntity;
     }
-    @DeleteMapping("/user/{movieId}")
-    public ResponseEntity<?> deleteUserProductFromList(@PathVariable String movieId,HttpServletRequest request)
+    @DeleteMapping("/user/{productId}")
+    public ResponseEntity<?> deleteUserProductFromList(@PathVariable String productId,HttpServletRequest request)
             throws CustomerNotFoundException, ProductNotFoundException
     {
         Claims claims = (Claims) request.getAttribute("claims");
-        System.out.println("email from claims :: " + claims.getSubject());
-        String email = claims.getSubject();
-        System.out.println("email :: "+email);
+        System.out.println("id from claims :: " + claims.getSubject());
+        String id = claims.getSubject();
+        System.out.println("id :: "+id);
         try {
-            responseEntity = new ResponseEntity<>(userMovieService.deleteProductOfACustomer(email, movieId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(customerProductService.deleteProductOfACustomer(id, productId), HttpStatus.OK);
         } catch (CustomerNotFoundException | ProductNotFoundException m) {
             throw new ProductNotFoundException();
         }

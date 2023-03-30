@@ -32,7 +32,7 @@ services:
       - mysqlservice
     restart: always
 
-  usermovieservice:
+  userproductservice:
     container_name: user-movie-service
     build: UserProductService/
     networks:

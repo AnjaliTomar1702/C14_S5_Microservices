@@ -1,7 +1,7 @@
 package com.bej.userauthenticationservice.security;
 
 
-import com.bej.userauthenticationservice.domain.Customer;
+import com.bej.userauthenticationservice.domain.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
@@ -12,21 +12,21 @@ import java.util.Map;
 
 @Service
 public class JWTSecurityTokenGeneratorImpl implements SecurityTokenGenerator {
-    public String createToken(Customer user){
+    public String createToken(User user){
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", user.getCustomerID());
-        return generateToken(claims,user.getCustomerID());
+        claims.put("id", user.getCustomerId());
+        return generateToken(claims,user.getCustomerId());
     }
 
     public String generateToken(Map<String,Object> claims,String subject) {
-        String jwtToken = Jwts.builder().setIssuer("ProductZone")
+         String jwtToken = Jwts.builder().setIssuer("MovieZone")
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS256,"mysecret")
                 //mysecret is the key that has to be shared everytime you do encrypt and decrypt process
                 .compact();
-        return jwtToken;
+         return jwtToken;
 
     }
 
